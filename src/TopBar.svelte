@@ -1,21 +1,29 @@
 <script>
-	export let title = "My Cute App";
+	export let title = "Wiki Pork";
 </script>
 
-<div class="topbar">
-	{title}
+<div class="titlebar">
+	<span class="titletext">{title}</span>
 </div>
 
 <style>
-	.topbar {
-		background-color: #cd5178;
-		color: #fff;
-		padding: 1rem;
-		height: 140px;
-		font-size: 1.5rem;
-		font-weight: bold;
-		text-align: center;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-		font-family: "Segoe UI", sans-serif;
+	.titlebar {
+		background-image: url(./lib/images/topbarbg.jpg);
+		background-position: center;
+		overflow: hidden;
+		background-color: var(--salmon-pink);
+		height: 200px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.titletext {
+		font-family: "Roboto Mono", monospace;
+		color: var(--eerie-black);
+		font-size: 10rem;
+		line-height: 1;
+		margin: 0;
+		padding: 0;
 	}
 </style>
