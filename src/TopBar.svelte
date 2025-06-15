@@ -8,20 +8,30 @@
 
 <style>
 	.titlebar {
-		background-image: url(./lib/images/topbarbg.jpg);
-		background-position: center;
+		width: 100%;
+		height: 200px;
 		overflow: hidden;
 		background-color: var(--salmon-pink);
-		height: 200px;
-		display: flex;
+		/* pretty background image~ */
+		background-image: url("./lib/images/topbarbackground5.jpg"),
+			url("./lib/images/topbarbackgroundfill.jpg");
+		background-size: contain, contain;
+		background-repeat: no-repeat, repeat;
+		background-position: center, center;
+		display: block;
 		align-items: center;
-		justify-content: center;
+		position: relative;
 	}
 
 	.titletext {
+		width: 50px;
+		position: absolute;
+		left: 2rem;
 		font-family: "Roboto Mono", monospace;
-		color: var(--eerie-black);
-		font-size: 10rem;
+		color: transparent;
+		-webkit-text-stroke: 3px var(--eerie-black);
+		text-stroke: 3px var(--light-coral);
+		font-size: 6rem;
 		line-height: 1;
 		margin: 0;
 		padding: 0;

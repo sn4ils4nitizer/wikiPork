@@ -8,7 +8,6 @@
 
 <style>
 	.text {
-		color: var(--ash-gray);
 		margin-top: 20px;
 		margin-left: 20px;
 	}

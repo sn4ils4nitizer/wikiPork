@@ -19,6 +19,8 @@
 	.layout {
 		display: flex;
 		height: 100vh;
+		font-family: monospace;
+		font-size: 12pt;
 		color: var(--ash-gray);
 	}
 </style>
