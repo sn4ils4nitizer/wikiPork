@@ -1,13 +1,24 @@
-<script>
+<script lang="ts">
 	import TopBar from "../TopBar.svelte";
 	import SideBar from "../SideBar.svelte";
 	import PageView from "../PageView.svelte";
+	import Editor from "../Editor.svelt";
+
+	let currentView = "page";
+
+	function switchView(view: string) {
+		currentView = view;
+	}
 </script>
 
 <TopBar />
 <div class="layout">
-	<SideBar />
-	<PageView />
+	<SideBar onSwitch={switchView} />
+	{#if currentView === "page"}
+		<PageView />
+	{:else if currentView === "editor"}
+		<Editor />
+	{/if}
 </div>
 
 <style>

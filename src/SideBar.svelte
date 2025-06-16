@@ -2,6 +2,8 @@
 	import { pageContent } from "./lib/stores";
 	import PageView from "./PageView.svelte";
 
+	export let onSwitch;
+
 	let pageToDelete: string = "";
 	let pages: string[] = [];
 
@@ -81,6 +83,14 @@
 				});
 			}}>Delete</button
 		>
+		<div>
+			<button on:click={() => onSwitch("page")}
+				>Page View</button
+			>
+			<button on:click={() => onSwitch("editor")}
+				>Editor View</button
+			>
+		</div>
 	</div>
 	<span class="sidebartext">
 		<ul>
