@@ -1,5 +1,5 @@
 <script>
-	export let title = "Wiki Pork";
+	export let title = "Luna Pig";
 </script>
 
 <div class="titlebar">
@@ -27,7 +27,7 @@
 		width: 50px;
 		position: absolute;
 		left: 2rem;
-		font-family: "Roboto Mono", monospace;
+		font-family: monospace;
 		color: transparent;
 		-webkit-text-stroke: 3px var(--eerie-black);
 		text-stroke: 3px var(--light-coral);

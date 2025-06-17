@@ -116,7 +116,7 @@
 		width: 160px;
 		overflow: hidden;
 		background: var(--salmon-pink);
-		height: 100vw;
+		height: 100vh;
 		display: flex;
 		flex-flow: column;
 	}
