@@ -84,18 +84,15 @@
 			}}>Delete</button
 		>
 		<div>
-			<button on:click={() => onSwitch("page")}
-				>Page View</button
-			>
 			<button on:click={() => onSwitch("editor")}
-				>Editor View</button
+				>Create Page</button
 			>
 		</div>
 	</div>
 	<span class="sidebartext">
-		<ul>
+		<ul style="margin-top: 1rem;">
 			{#each pages as item}
-				<li style="list-style: none; margin-top: 5px;">
+				<li style="list-style: none;">
 					<button
 						on:click={() =>
 							fetchPageContent(
@@ -103,7 +100,9 @@
 									".html",
 									"",
 								),
-							)}>{item}</button
+							)}
+					>
+						{item}</button
 					>
 				</li>
 			{/each}
@@ -135,9 +134,16 @@
 	}
 
 	button {
+		width: 160px;
 		border-width: 3px;
 		background-color: var(--salmon-pink);
 		border-color: var(--light-coral);
 		border-radius: 10px;
+	}
+
+	li,
+	ul {
+		margin: 0px;
+		padding: 0px;
 	}
 </style>

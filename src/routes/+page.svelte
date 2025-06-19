@@ -18,7 +18,7 @@
 		<PageView />
 	{:else if currentView === "editor"}
 		<div class="editor-view">
-			<Editor />
+			<Editor onSwitch={switchView} />
 		</div>
 	{/if}
 </div>
