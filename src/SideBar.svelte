@@ -6,6 +6,8 @@
 
 	export let onSwitch;
 
+	export let onPageLoad: (path: string, content: string) => void;
+
 	let pageToDelete: string = "";
 	let treeData: TreeNode;
 
@@ -28,11 +30,9 @@
 
 	export async function fetchPageContent(path: string) {
 		try {
-			const cleanedPath = path
-				.replace(/^pages\//, "")
-				.replace(/\.html$/, "");
+			const cleanedPath = path.replace(/^pages\//, "");
 			const response = await fetch(
-				`http://localhost:8080/api/wiki/${cleanedPath}.html`,
+				`http://localhost:8080/api/wiki/${cleanedPath}`,
 			);
 			if (!response.ok) {
 				throw new Error(
@@ -40,16 +40,23 @@
 				);
 			}
 			const data = await response.text();
+			const cleanedPathForDisplay = path
+				.replace(/^pages\//, "")
+				.replace(/\.html$/, "");
+			pageToDelete = path
+				.replace(/^pages\//, "")
+				.replace(/\.html$/, "");
 			pageContent.set(data);
+			onPageLoad(cleanedPathForDisplay, data);
 		} catch (error) {
 			console.error("Fetch error", error);
 		}
 	}
 
-	async function deletePage(page: string) {
+	async function deletePage(path: string) {
 		try {
 			const response = await fetch(
-				`http://localhost:8080/api/wiki/${page}.html`,
+				`http://localhost:8080/api/wiki/${path}.html`,
 				{
 					method: "DELETE",
 				},
@@ -79,6 +86,7 @@
 			/>
 		</span>
 		<button
+			style="margin-bottom: 2rem;"
 			on:click={() => {
 				deletePage(pageToDelete).then(() => {
 					location.reload();
@@ -86,8 +94,13 @@
 			}}>Delete</button
 		>
 		<div>
-			<button on:click={() => onSwitch("editor")}
+			<button on:click={() => onSwitch("editor", "create")}
 				>Create Page</button
+			>
+		</div>
+		<div>
+			<button on:click={() => onSwitch("editor", "edit")}
+				>Edit Page</button
 			>
 		</div>
 	</div>
@@ -108,6 +121,7 @@
 		height: 100vh;
 		display: flex;
 		flex-flow: column;
+		flex-shrink: 0;
 	}
 
 	.sidebartext {

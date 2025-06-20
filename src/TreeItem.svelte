@@ -55,7 +55,7 @@
 	ul {
 		list-style: none;
 		margin-top: 4px;
-		padding: 0px;
+		padding: 8px;
 	}
 
 	li {
@@ -65,10 +65,13 @@
 	}
 
 	button {
-		width: 160px;
+		display: block;
+		width: 100%;
 		border-width: 3px;
 		background-color: var(--salmon-pink);
 		border-color: var(--light-coral);
 		border-radius: 10px;
+		white-space: normal;
+		word-wrap: break-word;
 	}
 </style>

@@ -1,12 +1,18 @@
 <script lang="ts">
-	export let onSwitch: (view: string) => void;
-	let newPageContent = "";
-	let newPageName = "";
+	import { tabber } from "./lib/actions";
 
-	async function savePage(name: string, content: string) {
+	export let onSwitch: (view: string) => void;
+
+	export let initialName: string = "";
+	export let initialContent: string = "";
+
+	let newPageContent = initialContent;
+	let newPageName = initialName;
+
+	async function savePage(path: string, content: string) {
 		try {
 			const response = await fetch(
-				`http://localhost:8080/api/wiki/${name}`,
+				`http://localhost:8080/api/wiki/${path}`,
 				{
 					method: "POST",
 					headers: {
@@ -49,7 +55,10 @@
 		>
 		<button on:click={() => onSwitch("page")}>Cancel</button>
 	</div>
-	<textarea bind:value={newPageContent} placeholder="Type text here"
+	<textarea
+		bind:value={newPageContent}
+		placeholder="Type text here"
+		use:tabber
 	></textarea>
 </div>
 
@@ -64,6 +73,8 @@
 	}
 
 	textarea {
+		tab-size: 4;
+		-moz-tab-size: 4;
 		flex: 1;
 		background-color: var(--salmon-pink);
 		width: 100%;

@@ -6,21 +6,39 @@
 
 	let currentView = "page";
 
-	function switchView(view: string) {
+	let pageToEdit: string = "";
+	let pageToEditContent: string = "";
+
+	function handlePageLoad(path: string, content: string) {
+		pageToEdit = path;
+		pageToEditContent = content;
+	}
+
+	function switchView(view: string, mode: "create" | "edit" = "edit") {
+		if (view === "editor" && mode === "create") {
+			pageToEdit = "";
+			pageToEditContent = "";
+		}
 		currentView = view;
 	}
 </script>
 
 <TopBar />
 <div class="layout">
-	<SideBar onSwitch={switchView} />
-	{#if currentView === "page"}
-		<PageView />
-	{:else if currentView === "editor"}
-		<div class="editor-view">
-			<Editor onSwitch={switchView} />
-		</div>
-	{/if}
+	<SideBar onSwitch={switchView} onPageLoad={handlePageLoad} />
+	<main class="main-content">
+		{#if currentView === "page"}
+			<PageView />
+		{:else if currentView === "editor"}
+			<div class="editor-view">
+				<Editor
+					onSwitch={switchView}
+					initialName={pageToEdit}
+					initialContent={pageToEditContent}
+				/>
+			</div>
+		{/if}
+	</main>
 </div>
 
 <style>
@@ -28,9 +46,9 @@
 		margin: 0;
 		padding: 0;
 		background-color: black;
-		height: 100%;
+		height: 100vh;
 		width: 100%;
-		overflow-y: auto;
+		overflow: hidden;
 	}
 
 	.layout {
@@ -40,6 +58,14 @@
 		font-family: monospace;
 		font-size: 12pt;
 		color: var(--ash-gray);
+	}
+
+	.main-content {
+		flex-grow: 1;
+		min-width: 0;
+		width: 100%;
+		overflow-y: auto;
+		padding: 1.5rem;
 	}
 
 	.editor-view {
