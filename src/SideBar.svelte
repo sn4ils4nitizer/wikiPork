@@ -1,16 +1,18 @@
 <script lang="ts">
 	import { pageContent } from "./lib/stores";
 	import PageView from "./PageView.svelte";
+	import type { TreeNode } from "./types";
+	import TreeItem from "./TreeItem.svelte";
 
 	export let onSwitch;
 
 	let pageToDelete: string = "";
-	let pages: string[] = [];
+	let treeData: TreeNode;
 
 	async function fetchData() {
 		try {
 			const response = await fetch(
-				"http://localhost:8080/api/wiki2/list",
+				"http://localhost:8080/api/wiki/listv2",
 			);
 			if (!response.ok) {
 				throw new Error(
@@ -18,17 +20,19 @@
 				);
 			}
 			const data = await response.json();
-			console.log(data);
-			pages = data;
+			treeData = data;
 		} catch (error) {
-			console.error("Fetch errror", error);
+			console.error("Fetch error", error);
 		}
 	}
 
-	async function fetchPageContent(page: string) {
+	export async function fetchPageContent(path: string) {
 		try {
+			const cleanedPath = path
+				.replace(/^pages\//, "")
+				.replace(/\.html$/, "");
 			const response = await fetch(
-				`http://localhost:8080/api/wiki/${page}.html`,
+				`http://localhost:8080/api/wiki/${cleanedPath}.html`,
 			);
 			if (!response.ok) {
 				throw new Error(
@@ -36,8 +40,6 @@
 				);
 			}
 			const data = await response.text();
-			console.log(data);
-			console.log(typeof pageContent, pageContent);
 			pageContent.set(data);
 		} catch (error) {
 			console.error("Fetch error", error);
@@ -91,21 +93,9 @@
 	</div>
 	<span class="sidebartext">
 		<ul style="margin-top: 1rem;">
-			{#each pages as item}
-				<li style="list-style: none;">
-					<button
-						on:click={() =>
-							fetchPageContent(
-								item.replace(
-									".html",
-									"",
-								),
-							)}
-					>
-						{item}</button
-					>
-				</li>
-			{/each}
+			{#if treeData}
+				<TreeItem node={treeData} {fetchPageContent} />
+			{/if}
 		</ul>
 	</span>
 </div>
@@ -140,10 +130,9 @@
 		border-color: var(--light-coral);
 		border-radius: 10px;
 	}
-
-	li,
 	ul {
 		margin: 0px;
 		padding: 0px;
+		list-style: none;
 	}
 </style>
