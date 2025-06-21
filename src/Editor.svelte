@@ -12,7 +12,7 @@
 	async function savePage(path: string, content: string) {
 		try {
 			const response = await fetch(
-				`http://localhost:8080/api/wiki/${path}`,
+				`http://192.168.1.30:8080/api/wiki/${path}`,
 				{
 					method: "POST",
 					headers: {

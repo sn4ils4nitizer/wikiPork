@@ -14,7 +14,7 @@
 	async function fetchData() {
 		try {
 			const response = await fetch(
-				"http://localhost:8080/api/wiki/listv2",
+				"http://192.168.1.30/api/wiki/list",
 			);
 			if (!response.ok) {
 				throw new Error(
@@ -32,7 +32,7 @@
 		try {
 			const cleanedPath = path.replace(/^pages\//, "");
 			const response = await fetch(
-				`http://localhost:8080/api/wiki/${cleanedPath}`,
+				`http://192.168.1.30:8080/api/wiki/${cleanedPath}`,
 			);
 			if (!response.ok) {
 				throw new Error(
@@ -56,7 +56,7 @@
 	async function deletePage(path: string) {
 		try {
 			const response = await fetch(
-				`http://localhost:8080/api/wiki/${path}.html`,
+				`http://192.168.1.30:8080/api/wiki/${path}.html`,
 				{
 					method: "DELETE",
 				},
